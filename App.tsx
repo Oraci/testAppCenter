@@ -9,6 +9,7 @@
  */
 
 import React from 'react';
+import codePush from 'react-native-code-push';
 import {
   SafeAreaView,
   ScrollView,
@@ -112,4 +113,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default codePush({
+  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+  installMode: codePush.InstallMode.IMMEDIATE,
+})(App);

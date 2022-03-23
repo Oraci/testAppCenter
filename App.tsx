@@ -1,14 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
-import React from 'react';
+import React, {useState, useCallback} from 'react';
 import codePush from 'react-native-code-push';
 import {
   SafeAreaView,
@@ -18,6 +8,7 @@ import {
   Text,
   useColorScheme,
   View,
+  TouchableOpacity,
 } from 'react-native';
 
 import {
@@ -57,39 +48,45 @@ const Section: React.FC<{
 };
 
 const App = () => {
+  const [counter, setCounter] = useState(0);
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const onHandleIncrease = useCallback(
+    () => setCounter(counter + 1),
+    [counter],
+  );
+
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <SafeAreaView style={{...backgroundStyle, flex: 1}}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderWidth: 1,
+        }}>
+        <TouchableOpacity
+          onPress={onHandleIncrease}
           style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
+            minWidth: 100,
+            backgroundColor: '#eb926c',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginBottom: 10,
+            borderRadius: 10,
+            borderWidth: 2,
+            borderColor: '#e85f25',
+            padding: 10,
           }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
+          <Text style={{fontSize: 16}}>Somar</Text>
+        </TouchableOpacity>
+        <Text style={{fontSize: 42}}>{counter}</Text>
+      </View>
     </SafeAreaView>
   );
 };
